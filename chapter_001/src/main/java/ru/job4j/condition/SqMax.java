@@ -9,11 +9,11 @@ public class SqMax {
                     result = first;
                 }
             }
-        } else if (second > third) {
+        }  if (second > third) {
             if (second > forth) {
                 result = second;
             }
-        } else if (third > forth) {
+        }  if (third > forth) {
             result = third;
         }
         return result;

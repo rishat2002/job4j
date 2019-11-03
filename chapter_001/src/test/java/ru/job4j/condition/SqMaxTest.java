@@ -5,9 +5,9 @@ import static org.junit.Assert.assertThat;
 public class SqMaxTest {
     @Test
     public void  max() {
-        int result = SqMax.max(12,20,13,16);
+        int result = SqMax.max(30,20,31,16);
 
-        assertThat(result,is(20));
+        assertThat(result,is(31));
 
     }
 }
