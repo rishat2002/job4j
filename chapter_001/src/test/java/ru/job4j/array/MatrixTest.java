@@ -23,4 +23,5 @@ public class MatrixTest {
         };
         assertThat(table, is(expect));
     }
+
 }
