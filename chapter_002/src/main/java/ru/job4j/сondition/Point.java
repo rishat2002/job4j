@@ -1,4 +1,4 @@
-package ru.job4j.Condition;
+package ru.job4j.сondition;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.pow;
 
@@ -18,8 +18,8 @@ public class Point {
     }
 
     public static void main(String[] args) {
-        Point a = new Point(1, 0);
-        Point b = new Point(3, 2);
+        Point a = new Point(2, 2);
+        Point b = new Point(6, 4);
         double dist = a.distance(b);
         System.out.println(dist);
     }
