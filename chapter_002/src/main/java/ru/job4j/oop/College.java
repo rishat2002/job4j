@@ -6,5 +6,6 @@ public class College {
         Student student=man;
         Object object=man;
         // понижающее приведение
+
     }
 }
