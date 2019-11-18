@@ -71,7 +71,7 @@ public class Tracker {
     }
 
     public static void main(String[] args) {
-        /*Item item1=new Item("vasya");
+        Item item1=new Item("vasya");
         Item item2=new Item("pit");
         Item item3=new Item("slava");
         Item item4=new Item("spot");
@@ -93,27 +93,6 @@ public class Tracker {
         for (int i=0;i<newmas.length;i++) {
             System.out.println(newmas[i].getName());
         }
-       */
-        Item item1=new Item("vasya");
-        Item item2=new Item("pit");
-        Item item3=new Item("pit");
-        Item item4=new Item("spot");
-        Tracker tracker1=new Tracker();
-        tracker1.add(item1);
-        tracker1.add(item2);
-        tracker1.add(item3);
-        Item []newmas=tracker1.findAll();
-        System.out.println(newmas.length);
-        for (int i=0;i<newmas.length;i++) {
-            System.out.println(newmas[i].getId());
-        }
-        for (int i=0;i<newmas.length;i++) {
-            System.out.println(newmas[i].getName());
-        }
-        newmas=tracker1.findByName(item1.getName());
-        System.out.println(newmas.length);
-        for (int i=0;i<newmas.length;i++) {
-            System.out.println(newmas[i].getName());
-        }
+
     }
 }
