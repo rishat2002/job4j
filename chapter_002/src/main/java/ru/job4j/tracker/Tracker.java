@@ -15,9 +15,11 @@ public class Tracker {
     }
     public boolean replace(String id, Item item) {
         boolean result=false;
-        for (int i=0;i<items.length;i++) {
-            if(items[i]!=null && this.items[i].getId().equals(id)) {
-                this.items[i]=item;
+        for (int i=0;i<position;i++) {
+            if(items[i].getId().equals(id)) {
+                String oldid=items[i].getId();
+                items[i]=item;
+               items[i].setId(oldid);
                 result=true;
                 break;
             }
@@ -27,18 +29,18 @@ public class Tracker {
     public boolean delete(String id) {
         boolean result=false;
         int n=0;
-        Item []newitems= new Item[items.length+1];
-        System.arraycopy(items, 0, newitems, 0,items.length);
         for (int i=0;i<position;i++) {
-            if (this.items[i].equals(id)) {
-                this.items[i]=null;
+            if (items[i].equals(id)) {
                 n=i;
+                result=true;
                 break;
             }
         }
-        for (int i=n;i<items.length;i++) {
-            items[i]=newitems[i+1];
+        items[n]=null;
+        for (int i=n;i<items.length-1;i++) {
+            items[i]=items[i+1];
         }
+        items[items.length-1]=null;
         return result;
     }
     public Item[] findAll() {
@@ -47,20 +49,24 @@ public class Tracker {
      return newitems;
     }
     public Item[] findByName(String key) {
-        Item[] newitem=new Item[items.length];
         int newitemindex=0;
-        for (int i=0;i<items.length;i++) {
-            if(items[i]!=null && key.equals(items[i].getName())) {
+        for (int i=0;i<position;i++) {
+            if(key.equals(items[i].getName())) {
+                newitemindex++;
+            }
+        }
+        Item[] newitem=new Item[newitemindex];
+        newitemindex=0;
+        for (int i=0;i<position;i++) {
+            if(key.equals(items[i].getName())) {
                 newitem[newitemindex]=items[i];
                 newitemindex++;
             }
         }
-        Item[] resultitem=new Item[newitemindex];
-        System.arraycopy(newitem,0,resultitem,0,resultitem.length);
-        return resultitem;
+        return newitem;
     }
     public Item findById(String id) {
-        Item iditem=new Item(null);
+        Item iditem=null;
         for (int i=0;i<items.length;i++) {
             if(id.equals(this.items[i].getId())) {
             iditem=this.items[i];
