@@ -30,7 +30,7 @@ public class StartUI {
             System.out.println("The replacement was not successful");
         }
     }
-    public static void delteItem(Input input, Tracker tracker) {
+    public static void deleteItem(Input input, Tracker tracker) {
         System.out.println("=== Delete item ===");
         String id=input.askStr("Enter id");
         if (tracker.delete(id)) {
@@ -76,7 +76,7 @@ public class StartUI {
                StartUI.editItem(input, tracker);
             }
             else if (select==3) {
-               StartUI.delteItem(input, tracker);
+               StartUI.deleteItem(input, tracker);
             }
             else if (select==4) {
             StartUI.findByIdItem(input, tracker);
