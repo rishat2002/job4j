@@ -11,7 +11,7 @@ public class FindNameAction implements UserAction{
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        String name=input.askStr("Enter name");
+        String name=input.askStr("");
         if (tracker.findByName(name).length!=0) {
             for (int i=0;i<tracker.findByName(name).length;i++)
                 System.out.println(tracker.findByName(name)[i].getId());
