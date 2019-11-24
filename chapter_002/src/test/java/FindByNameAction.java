@@ -1,15 +1,18 @@
 import  org.junit.Test;
+import ru.job4j.ru.job4j.tracker.FindNameAction;
 import ru.job4j.ru.job4j.tracker.ShowAction;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.StubInput;
 import ru.job4j.tracker.Tracker;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.StringJoiner;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-public class FindAllActionsTest {
+public class FindByNameAction {
 
     @Test
     public void whenCheckOutput() {
@@ -19,11 +22,9 @@ public class FindAllActionsTest {
         Tracker tracker = new Tracker();
         Item item = new Item("fix bug");
         tracker.add(item);
-        ShowAction act = new ShowAction();
+        FindNameAction act = new FindNameAction();
         act.execute(new StubInput(new String[] {}), tracker);
-        String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
-                .add(item.getName())
-                .toString();
+        String expect = item.getId();
         assertThat(new String(out.toByteArray()), is(expect));
         System.setOut(def);
     }
