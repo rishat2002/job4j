@@ -3,8 +3,7 @@ package ru.job4j.ru.job4j.tracker;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
-public class CreateAction implements UserAction {
-
+public class CreateAction extends BaseAction implements UserAction  {
     @Override
     public String name() {
         return "=== Create a new Item ====";

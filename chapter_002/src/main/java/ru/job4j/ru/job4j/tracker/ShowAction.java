@@ -3,7 +3,7 @@ package ru.job4j.ru.job4j.tracker;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
-public class ShowAction implements UserAction {
+public class ShowAction extends BaseAction implements UserAction {
 
     @Override
     public String name() {
