@@ -36,14 +36,7 @@ public class SortUser {
         }.thenComparing(new Comparator<User>() {
             @Override
             public int compare(User o1, User o2) {
-                int n=0;
-                if (o1.getAge()>o2.getAge()) {
-                    n=1;
-                }
-                else if(o1.getAge()<o2.getAge()) {
-                    n=-1;
-                }
-                return n;
+                return Integer.compare(o1.getAge(),o2.getAge()) ;
             }
         }));
         for (User m:list) {
