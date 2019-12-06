@@ -20,8 +20,7 @@ public class Tracker {
         for (int i=0;i<itemlist.size();i++) {
             if(itemlist.get(i).getId().equals(id)) {
                 String oldid=itemlist.get(i).getId();
-                itemlist.remove(i);
-                itemlist.add(i,item);
+                itemlist.set(i,item);
                 result=true;
                 break;
             }
@@ -29,7 +28,8 @@ public class Tracker {
         return result;
     }
     public List<Item> findall() {
-        return itemlist;
+        ArrayList<Item>copy= new ArrayList<Item>(itemlist);
+        return copy;
     }
 
     public boolean delete(String id) {
