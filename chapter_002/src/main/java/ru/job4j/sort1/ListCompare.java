@@ -6,28 +6,22 @@ public class ListCompare implements Comparator<String> {
         int n=0;
         char[] leftmass=left.toCharArray();
         char[] rightmass=right.toCharArray();
-        if (leftmass.length>=rightmass.length) {
-            for (int i=0;i<rightmass.length;i++) {
+        int lenght=0;
+        lenght=leftmass.length>=rightmass.length?rightmass.length:leftmass.length;
+            for (int i=0;i<lenght;i++) {
                 n=Character.compare(leftmass[i], rightmass[i]);
                 if (n!=0) {
                     break;
                 }
             }
-        }
-        else {
-            for (int i=0;i<leftmass.length;i++) {
-                n=Character.compare(leftmass[i], rightmass[i]);
-                if (n!=0) {
-                    break;
-                }
-            }
-        }
-        if (n==0) {
-            if (leftmass.length>rightmass.length) {
-                n=1;
-            }
+        if (n<=0) {
             if (leftmass.length<rightmass.length) {
-                n=-1;
+                n=-2;
+            }
+        }
+        if (n>=0) {
+            if (leftmass.length>rightmass.length) {
+                n=2;
             }
         }
         return n;
@@ -35,5 +29,8 @@ public class ListCompare implements Comparator<String> {
 
 
     public static void main(String[] args) {
+        ListCompare list=new ListCompare();
+        System.out.println(list.compare("123","12345"));
+        System.out.println("123".compareTo("12345"));
     }
 }
