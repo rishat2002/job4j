@@ -4,11 +4,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Profiles {
     public List<Address> collect(List<Profile> profiles) {
-        List<Address> adres=profiles.stream().map(prof->prof.getAddress()).distinct().collect(Collectors.toList());
-        adres=adres.stream().sorted(Comparator.comparing(Address::getCity)).collect(Collectors.toList());
+        Stream stream =profiles.stream().map(prof->prof.getAddress()).distinct();
+        List <Address> adres= (List<Address>) stream.sorted(Comparator.comparing(Address::getCity)).collect(Collectors.toList());
         return adres;
     }
 
