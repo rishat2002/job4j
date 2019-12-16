@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Operation {
    public Map<User, List<Account>> users = new HashMap<User, List<Account>>();
@@ -16,50 +18,43 @@ public class Operation {
         users.remove(user);
     }
     public User getUserByPassport(String passport) {
-     User user = null;
-        for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                user=entry.getKey();
-            }
-        }
-        return user;
+        List<User>list=users.entrySet().stream().map(n->n.getKey()).filter(x->x.getPassport().equals(passport)).collect(Collectors.toList());
+        if (list.isEmpty()) { return null; }
+        return list.get(0);
     }
-    public Account getAccount(User user, String req) {
-        Account acc=null;
-        for (Account destAccount :user.getAccount()) {
-            if (destAccount.getRequisites().equals(req)) {
-                acc=destAccount;
-            }
-        }
-        return acc;
+    public Account getAccount1(User user, String req) {
+        List<Account>list=user.getAccount().stream().filter(n->n.getRequisites().equals(req)).collect(Collectors.toList());
+        if (list.isEmpty()) {return null; };
+        return list.get(0);
     }
 
     public void addAccountToUser(String passport, Account account) {
+        if (this.getUserByPassport(passport)==null) { System.out.println("passport not found"); }
         this.getUserByPassport(passport).addAccount(account);
     }
 
     public void deleteAccountFromUser(String passport, Account account) {
+        if (this.getUserByPassport(passport)==null) { System.out.println("passport not found"); }
           this.getUserByPassport(passport).delAccount(account);
     }
 
     public List<Account> getUserAccounts(String passport) {
         List<Account> list = new ArrayList<>();
         list=this.getUserByPassport(passport).getAccount();
+        if (this.getUserByPassport(passport)==null) { System.out.println("passport not found"); }
         return list;
     }
 
-    public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, int amount) throws NullPointerException{
+    public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, int amount) {
         boolean successoper = false;
-        try{
-        User src = this.getUserByPassport(srcPassport);;
+        User src = this.getUserByPassport(srcPassport);
         User dest = this.getUserByPassport(destPassport);
-        Account destacc=this.getAccount(dest,dstRequisite);
-        Account srcacc=this.getAccount(src,srcRequisite);
-        successoper=srcacc.transfer(destacc,amount);
-        }
-        catch (NullPointerException e) {
+        Account destacc=this.getAccount1(dest,dstRequisite);
+        Account srcacc=this.getAccount1(src,srcRequisite);
+        if (src==null || dest==null || destacc==null || srcacc==null) {
             return successoper;
         }
+        successoper=srcacc.transfer(destacc,amount);
         return successoper;
     }
 
@@ -72,14 +67,14 @@ public class Operation {
         user2.addAccount(new Account(3000,"654321"));
         newoperation.addUser(user1);
         newoperation.addUser(user2);
+        System.out.println(newoperation.getUserByPassport("20002"));
+        System.out.println(newoperation.getUserByPassport("5435"));
         newoperation.transferMoney("10001","123456","20002","654321",6000);
         System.out.println(user2.getAccount().get(0).getValue());
         System.out.println(user1.getAccount().get(0).getValue());
         newoperation.transferMoney("10001","123456","10001","103456",3000);
         System.out.println(user1.getAccount().get(0).getValue());
         System.out.println(user1.getAccount().get(1).getValue());
-        System.out.println(newoperation.transferMoney("10001","123456","20002","654321",400000));
-        System.out.println(newoperation.transferMoney("10001","12356","2002","654321",6000));
     }
 }
 /*1. Многие методы используют user, которого нужно найти по паспорту, поэтому целесообразно вынести этот поиск
