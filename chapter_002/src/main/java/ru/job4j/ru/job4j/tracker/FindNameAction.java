@@ -2,7 +2,19 @@ package ru.job4j.ru.job4j.tracker;
 
 import ru.job4j.tracker.Tracker;
 
+import java.util.function.Consumer;
+
 public class FindNameAction implements UserAction{
+
+    @Override
+    public String info() {
+        return null;
+    }
+
+    @Override
+    public int key() {
+        return 0;
+    }
 
     @Override
     public String name() {
@@ -10,14 +22,14 @@ public class FindNameAction implements UserAction{
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String>output) {
         String name=input.askStr("");
-        if (tracker.findByName(name).length!=0) {
-            for (int i=0;i<tracker.findByName(name).length;i++)
-                System.out.println(tracker.findByName(name)[i].getId());
+        if (tracker.findByName(name).isEmpty()) {
+            for (int i=0;i<tracker.findByName(name).size();i++)
+                output.accept(tracker.findByName(name).get(i).getId());
         }
         else {
-            System.out.println("Item not found");
+            output.accept("Item not found");
         }
         return true;
     }

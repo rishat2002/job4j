@@ -7,6 +7,7 @@ import ru.job4j.tracker.Tracker;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -14,6 +15,13 @@ import static org.junit.Assert.assertThat;
 public class InitTest {
     @Test
     public void whenPrtMenu() {
+        Tracker tracker=new Tracker();
+        Consumer<String> cons=new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+
+            }
+        };
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
@@ -21,7 +29,7 @@ public class InitTest {
                 new String[] {"0"}
         );
         StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[] { action });
+        new StartUI(input,tracker,cons).init(input, new Tracker(), new UserAction[] { action });
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.")
                 .add("0. Stub action")

@@ -2,7 +2,19 @@ package ru.job4j.ru.job4j.tracker;
 
 import ru.job4j.tracker.Tracker;
 
+import java.util.function.Consumer;
+
 public class DeleteAction implements UserAction{
+
+    @Override
+    public String info() {
+        return null;
+    }
+
+    @Override
+    public int key() {
+        return 0;
+    }
 
     @Override
     public String name() {
@@ -10,13 +22,13 @@ public class DeleteAction implements UserAction{
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
         String id=input.askStr("Enter id");
         if (tracker.delete(id)) {
-            System.out.println("Item with id"+id+"deleted");
+            output.accept("Item with id"+id+"deleted");
         }
         else {
-            System.out.println("Item cant deleted");
+            output.accept("Item cant deleted");
         }
         return true;
     }

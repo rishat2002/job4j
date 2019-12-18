@@ -3,6 +3,8 @@ package ru.job4j.ru.job4j.tracker;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
+import java.util.function.Consumer;
+
 public class CreateAction extends BaseAction implements UserAction  {
     @Override
     public String name() {
@@ -10,8 +12,8 @@ public class CreateAction extends BaseAction implements UserAction  {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
-        System.out.print("Enter name: ");
+    public boolean execute(Input input, Tracker tracker, Consumer<String>output) {
+        output.accept("Enter name: ");
         String name = input.askStr("");
         Item item = new Item(name);
         tracker.add(item);
