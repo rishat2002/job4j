@@ -17,16 +17,11 @@ public class RoleStoreTest {
  @Test
  public void replaceTest() {
      rol.replace("34",new Role("78"));
-     assertThat(new Role("78").getId(),is(rol.simple.get(1).getId()));
+     assertThat(new Role("78").getId(),is(rol.findById("78").getId()));
 }
     @Test
     public void deleteTest() {
         rol.delete("34");
-        assertThat(new Role("56").getId(),is(rol.simple.get(1).getId()));
-    }
-    @Test
-    public void findByIdTest() {
-        rol.findById("34");
-        assertThat(rol.simple.get(1),is(rol.findById("34")));
+        assertNull(rol.findById("34"));
     }
 }
