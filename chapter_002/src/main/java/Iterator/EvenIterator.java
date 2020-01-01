@@ -17,6 +17,9 @@ public class EvenIterator implements Iterator {
         for (int l=i;l<newarr.length;l++) {
             if (newarr[l]%2==0) {
                 s=true;
+                i=l;
+                break;
+
             }
         }
         return s;
@@ -26,12 +29,6 @@ public class EvenIterator implements Iterator {
     public Object next() throws NoSuchElementException {
         if (!this.hasNext())
         {throw new NoSuchElementException();}
-        for (int n=i;n<newarr.length;n++) {
-            if (newarr[n]%2==0) {
-                i=n;
-                break;
-            }
-        }
         int l=i;
         if (i<newarr.length-1) i++;
         return newarr[l];
