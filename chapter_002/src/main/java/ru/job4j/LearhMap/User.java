@@ -1,7 +1,6 @@
 package ru.job4j.LearhMap;
 
 import java.util.Calendar;
-
 public class User {
     private String name;
     private int children;
