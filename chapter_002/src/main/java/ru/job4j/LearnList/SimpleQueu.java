@@ -1,17 +1,9 @@
 package ru.job4j.LearnList;
 
-public class SimpleQueu<T> {
-    private SimpleArrayList<T>list=new SimpleArrayList<T>();
-    public T poll() {
-        T result=list.get(0);
-        list.delete();
-        return result;
-    }
+public class SimpleQueu<T> extends SimpleStack<T> {
 
     public void push(T value){
-        list.addInEnd(value);
+        this.getList().addInEnd(value);
     }
-    public T get(int i) {
-        return list.get(i);
-    }
+
 }
