@@ -1,7 +1,6 @@
 package job4j;
 import org.junit.Test;
-import ru.job4j.CountFunction;
-import ru.job4j.Sort.Machine;
+import ru.job4j.Lambda.CountFunction;
 
 import java.util.Arrays;
 import java.util.List;
