@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SimpleArrayList<E> implements Iterable<E> {
-    private int modCount=0;
+    private int modCount = 0;
     private int size;
     private Node<E> first;
 
@@ -16,23 +16,24 @@ public class SimpleArrayList<E> implements Iterable<E> {
         this.size++;
         this.modCount++;
     }
+
     public void addInEnd(E data) {
-        if (size==0) {
-            this.first=new Node<>(data);
+        if (size == 0) {
+            this.first = new Node<>(data);
+        } else {
+            Node<E> result = this.first;
+            for (int i = 0; i < size - 1; i++) {
+                result = result.next;
+            }
+            result.next = new Node<>(data);
         }
-        else {
-        Node<E> result = this.first;
-        for (int i = 0; i<size-1 ; i++) {
-            result = result.next;
-        }
-        result.next = new Node<>(data);}
         this.size++;
         this.modCount++;
     }
 
     public void delete() {
-        Node<E> newLink=this.first.next;
-        this.first=newLink;
+        Node<E> newLink = this.first.next;
+        this.first = newLink;
         size--;
         modCount++;
     }
@@ -44,6 +45,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
         }
         return result.data;
     }
+
     public int getSize() {
         return this.size;
     }
@@ -57,29 +59,38 @@ public class SimpleArrayList<E> implements Iterable<E> {
             this.data = data;
         }
     }
+
     @Override
     public Iterator iterator() {
         return new Iterator<E>() {
-            private int s=modCount;
-            private int i=0;
+            private int s = modCount;
+            private int i = 0;
             Node<E> result = first;
+
             @Override
             public boolean hasNext() {
-                if (i<size) return true;
-                else return false;
+                boolean result = false;
+                if (i < size) {
+                     result = true;
+                }
+                return result;
             }
+
             @Override
             public E next() throws NoSuchElementException, ConcurrentModificationException {
-                if (s!=modCount) throw  new ConcurrentModificationException();
-                if (!this.hasNext()) throw new NoSuchElementException();
-                E obj=result.data;
-                result=result.next;
+                if (s != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                if (!this.hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                E obj = result.data;
+                result = result.next;
                 i++;
                 return obj;
             }
         };
     }
-
 
 
 }
