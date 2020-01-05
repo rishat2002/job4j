@@ -83,7 +83,7 @@ public class IteratorOfIteratorsTest {
         Iterator<Iterator<Integer>> its = Arrays.asList(it1, it2, it3).iterator();
         Converter IteratorOfIterators = new Converter();
         it = IteratorOfIterators.convert(its);
-        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(false));
     }
 
     @Test(expected = NoSuchElementException.class)
