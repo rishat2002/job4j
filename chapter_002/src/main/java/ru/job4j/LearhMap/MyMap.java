@@ -41,13 +41,7 @@ public class MyMap<K, V> implements Iterable {
     }
 
     public Entry1 searchForKey(K key) {
-        Entry1 entry1 = null;
-        for (Entry1 n : mass) {
-            if (n != null && n.getKey().equals(key)) {
-                entry1 = n;
-            }
-        }
-        return entry1;
+            return mass[Math.abs(key.hashCode() % mass.length)];
     }
 
     public boolean delete(K key) {
