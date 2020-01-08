@@ -47,7 +47,6 @@ public class MyMapTest {
         Iterator iter=newmap.iterator();
         for (int i=0;i<4;i++){
             Entry1 n= (Entry1) iter.next();
-            System.out.println(n.getKey()+" "+n.getValue());
         }
     }
     @Test (expected = ConcurrentModificationException.class)
@@ -59,4 +58,18 @@ public class MyMapTest {
             System.out.println(n.getKey()+" "+n.getValue());
         }
     }
+    @Test
+    public void addTest() {
+        MyMap<String,Integer> newmap1=new MyMap();
+        for (int i=0;i<20;i++) {
+            newmap1.insert(String.valueOf(i),i);
+        }
+        Iterator<Entry1> iter=newmap1.iterator();
+        for (int i=0;i<20;i++) {
+            System.out.println(iter.next().getKey());
+        }
+    }
 }
+//for (Object entry:newmap) {
+//            System.out.println(((Entry1)entry).getKey());
+//        }

@@ -21,11 +21,16 @@ public class MyMap<K, V> implements Iterable {
         int index = Math.abs(k.hashCode() % mass.length);
         if (i < mass.length) {
             mass[index] = entry1;
-        } else {
+        }
+        else  {
             Entry1[] biggermass = new Entry1[mass.length * 2];
-            System.arraycopy(mass, 0, biggermass, 0, mass.length);
+            for (int m = 0; m < mass.length; m++) {
+                int newindex = Math.abs(mass[m].getKey().hashCode() % biggermass.length);
+                System.out.println(newindex);
+                biggermass[newindex] = mass[m];
+            }
             mass = biggermass;
-            mass[index] = entry1;
+            mass[entry1.getKey().hashCode()%mass.length]=entry1;
         }
         modCount++;
         i++;
@@ -40,8 +45,8 @@ public class MyMap<K, V> implements Iterable {
         return rsl;
     }
 
-    public Entry1 searchForKey(K key) {
-            return mass[Math.abs(key.hashCode() % mass.length)];
+    private Entry1 searchForKey(K key) {
+        return mass[Math.abs(key.hashCode() % mass.length)];
     }
 
     public boolean delete(K key) {
@@ -49,12 +54,7 @@ public class MyMap<K, V> implements Iterable {
         if (this.searchForKey(key) == null) {
             n = false;
         } else {
-            for (int i = 0; i < mass.length; i++) {
-                if (mass[i] != null && mass[i].equals(this.searchForKey(key))) {
-                    mass[i] = null;
-                }
-            }
-            modCount++;
+            mass[Math.abs(key.hashCode() % mass.length)] = null;
         }
         return n;
     }
@@ -63,15 +63,13 @@ public class MyMap<K, V> implements Iterable {
     public Iterator iterator() {
         return new Iterator() {
             private int s = modCount;
-            private Entry1[] massfornext = mass.clone();
-            private Entry1[] massforhasnext = mass.clone();
-
+            private int j=0;
+            private int k=0;
             @Override
             public boolean hasNext() {
                 boolean result = false;
-                for (int i = 0; i < massforhasnext.length; i++) {
-                    if (massforhasnext[i] != null) {
-                        massforhasnext[i] = null;
+                for (int i = j; i < mass.length; i++) {
+                    if (mass[i] != null) {
                         result = true;
                         break;
                     }
@@ -88,10 +86,10 @@ public class MyMap<K, V> implements Iterable {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                for (int i = 0; i < massfornext.length; i++) {
-                    if (massfornext[i] != null) {
-                        l = massfornext[i];
-                        massfornext[i] = null;
+                for (int i = j; i < mass.length; i++) {
+                    if (mass[i] != null) {
+                        l = mass[i];
+                        j=i+1;
                         break;
                     }
                 }
