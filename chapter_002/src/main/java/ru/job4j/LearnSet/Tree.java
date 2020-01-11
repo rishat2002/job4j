@@ -14,11 +14,12 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean n = true;
-        if (this.findBy(child).isPresent() || !this.findBy(parent).isPresent()) {
+        var s=this.findBy(parent);
+        if (this.findBy(child).isPresent() || !s.isPresent()) {
             return n = false;
         }
         Node<E> newnod = new Node<>(child);
-        this.findBy(parent).get().add((newnod));
+        s.get().add((newnod));
         modCount++;
         return n;
     }
@@ -40,41 +41,34 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         }
         return rsl;
     }
-    public List returnlist() {
-        Queue<Node<E>> data = new LinkedList<>();
-        ArrayList<Node<E>> list=new ArrayList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            list.add(el);
-            for (Node<E> child : el.leaves()) {
-                data.offer(child);
-            }
-    }
-        return list;
-        }
+
 
     @Override
     public Iterator<E> iterator() {
-        List<Node<E>>q=this.returnlist();
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
         return new Iterator<E>() {
             private int n=modCount;
-            private List<Node<E>>qforiter=q;
-            Iterator<Node<E>> it=q.iterator();
             @Override
             public boolean hasNext() {
-                return it.hasNext();
+                return !data.isEmpty();
             }
 
             @Override
             public E next() {
+                E value=null;
                 if (n != modCount) {
                     throw new ConcurrentModificationException();
                 }
                 if (!this.hasNext()) {
                     throw new NoSuchElementException();
                 }
-                E value=it.next().getValue();
+                Node<E> el = data.poll();
+                for (Node<E> child : el.leaves()) {
+                        data.offer(child);
+                }
+                value=el.getValue();
+
                 return value;
             }
         };
