@@ -85,13 +85,15 @@ public class TreeTest {
         tree.add(1, 4);
         tree.add(4, 5);
         tree.add(5, 6);
-        assertThat(tree.isBinary(),is(true));
+        assertThat(tree.isBinary(),is(false));
     }
     @Test
     public void binaryFalseTest() {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, 2);
-        assertThat(tree.isBinary(),is(false));
+        tree.add(1, 3);
+        tree.add(3,4);
+        assertThat(tree.isBinary(),is(true));
     }
 
 

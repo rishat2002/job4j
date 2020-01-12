@@ -1,5 +1,6 @@
 package ru.job4j.LearnSet;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
@@ -42,14 +43,17 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return rsl;
     }
     public boolean isBinary() {
-        int i=0;
+        boolean bin=true;
         Iterator iter=this.iterator();
         while (iter.hasNext()) {
-            iter.next();
-            i++;
+            Node<E>par=this.findBy((E)iter.next()).get();
+            if (par.leaves().size()>2) {
+                bin=false;
+                break;
+            }
+            ;
         }
-        boolean n=i>2?true:false;
-        return n;
+        return bin;
     }
 
     @Override
