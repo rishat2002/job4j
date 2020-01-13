@@ -21,9 +21,10 @@ public class Config {
         BufferedReader br = new BufferedReader(fr);
         String line;
         while ((line = br.readLine()) != null) {
-            if (line.indexOf("=") != -1) {
-                String key = line.substring(0, line.indexOf("="));
-                String value = line.substring(line.indexOf("=") + 1, line.length());
+            int index=line.indexOf("=");
+            if (index != -1) {
+                String key = line.substring(0, index);
+                String value = line.substring(index + 1, line.length());
                 values.put(key, value);
             }
         }
@@ -33,22 +34,10 @@ public class Config {
 
 
     public String value(String key) {
-        String x = null;
-        for (Map.Entry<String, String> entry : this.values.entrySet()) {
-            if (key.equals(entry.getKey())) {
-                x = entry.getValue();
-                break;
-            }
-        }
-        return x;
+        return this.values.get(key);
     }
-
-    public Map<String, String> getCloneValues() {
-        return (new HashMap<>(values));
-    }
-
     public static void main(String[] args) throws IOException {
-        Config conf = new Config("C:\\projects\\job4j\\chapter_002\\src\\main\\java\\ru\\job4j\\io1\\app.properties");
+        Config conf = new Config(".\\src\\main\\java\\ru\\job4j\\io1\\app.properties");
         conf.load();
     }
 }
