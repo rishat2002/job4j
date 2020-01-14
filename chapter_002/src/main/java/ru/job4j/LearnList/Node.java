@@ -9,7 +9,7 @@ public class Node<T> {
         this.value = value;
     }
 
-    boolean hasCycle(Node<T> node) {
+    boolean hasCycle1(Node<T> node) {
         boolean valid = false;
         String loop = "";
         Node<T> temp = node;
@@ -22,5 +22,22 @@ public class Node<T> {
             }
         }
         return valid;
+    }
+    boolean hasCycle(Node<T> first) {
+        if(first == null)
+            return false;
+        Node slow, fast;
+        slow = fast = first;
+        while(true) {
+            slow = slow.next;
+            if(fast.next != null)
+                fast = fast.next.next;
+            else
+                return false;
+            if(slow == null || fast == null)
+                return false;
+            if(slow == fast)
+                return true;
+        }
     }
 }

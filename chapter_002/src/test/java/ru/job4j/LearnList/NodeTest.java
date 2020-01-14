@@ -7,23 +7,22 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 public class NodeTest {
-    Node first;
-    Node second;
-
-    Node third;
-
-    Node fourth;
+    Node<Integer> first;
+    Node<Integer> second;
+    Node<Integer> third;
+    Node<Integer> fourth;
 
     @Before
     public void prepare() {
-        first = new Node(1);
-        second = new Node(2);
-        third = new Node(3);
-        fourth = new Node(4);
+
     }
 
     @Test
     public void whenLastLoopOnFirstThenTrue() {
+        this.first = new Node<>(1);
+        this.second = new Node<>(2);
+        this.third = new Node<>(3);
+        this.fourth = new Node<>(4);
         first.next = second;
         second.next = third;
         third.next = fourth;
@@ -33,6 +32,10 @@ public class NodeTest {
 
     @Test
     public void whenLoopInTheMiddleThenTrue() {
+        this.first = new Node<>(1);
+        this.second = new Node<>(2);
+        this.third = new Node<>(3);
+        this.fourth = new Node<>(4);
         first.next = second;
         second.next = third;
         third.next = second;
@@ -41,6 +44,10 @@ public class NodeTest {
 
     @Test
     public void whenNoLoopThenFalse() {
+        this.first = new Node<>(1);
+        this.second = new Node<>(2);
+        this.third = new Node<>(3);
+        this.fourth = new Node<>(4);
         first.next = second;
         second.next = third;
         third.next = fourth;
