@@ -9,6 +9,7 @@ public class Node<E extends Comparable<E>> {
         return value;
     }
 
+
     public Node(final E value) {
         this.value = value;
     }
