@@ -15,21 +15,23 @@ public class Config {
         this.path = path;
     }
 
-    public void load() throws IOException {
+    public void load()  {
         File file = new File(path);
-        FileReader fr = new FileReader(file);
-        BufferedReader br = new BufferedReader(fr);
-        String line;
-        while ((line = br.readLine()) != null) {
-            int index=line.indexOf("=");
-            if (index != -1) {
-                String key = line.substring(0, index);
-                String value = line.substring(index + 1, line.length());
-                values.put(key, value);
+        try(FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                int index = line.indexOf("=");
+                if (index != -1) {
+                    String key = line.substring(0, index);
+                    String value = line.substring(index + 1, line.length());
+                    values.put(key, value);
+                }
             }
         }
-        br.close();
-        fr.close();
+        catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
 
