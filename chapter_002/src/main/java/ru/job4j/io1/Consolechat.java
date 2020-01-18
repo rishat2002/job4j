@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Consolechat {
-    public String randomPhrase(String source) throws IOException {
+    private final String endPhrase="end";
+    private final String stopPhrase="stop";
+    private final String continueChat="continue";
+    public List<String> randomPhrase(String source) throws IOException {
         FileReader fr = new FileReader(new File(source));
         BufferedReader br = new BufferedReader(fr);
         String line;
@@ -16,25 +19,26 @@ public class Consolechat {
         }
         br.close();
         fr.close();
-        return listWithPhrase.get((int) (Math.random() * (listWithPhrase.size())));
+        return listWithPhrase;
     }
 
     public List<String> chat(String source, String logfile) throws IOException {
+        List<String>listWithPhrase=this.randomPhrase(source);
         Scanner in = new Scanner(System.in);
         String s = "slovo";
         List<String> allchat = new ArrayList<>();
-        while (!s.equals("end")) {
+        while (!s.equals(endPhrase)) {
             s = in.nextLine();
-            allchat.add("Пользователь:" + "\n" + s);
-            if (s.equals("stop")) {
+            allchat.add("Пользователь:" + System.lineSeparator() + s);
+            if (s.equals(stopPhrase)) {
                 String con = "more";
-                while ((!con.equals("continue") && (!con.equals("end")))) {
+                while ((!con.equals(continueChat) && (!con.equals("end")))) {
                     con = in.nextLine();
-                    allchat.add("Пользователь:" + "\n" + con);
+                    allchat.add("Пользователь:" + System.lineSeparator() + con);
                 }
                 s = con;
-            } else if (!s.equals("end")) {
-                String ran = "Console:" + "\n" + this.randomPhrase(source);
+            } else if (!s.equals(endPhrase)) {
+                String ran = "Console:" + System.lineSeparator() + listWithPhrase.get((int) (Math.random() * (listWithPhrase.size())));
                 allchat.add(ran);
                 System.out.println(ran);
             }
