@@ -28,17 +28,21 @@ public class StoreSQL implements AutoCloseable {
     public void generate(int size) throws SQLException, ClassNotFoundException {
         Integer k = size;
         PreparedStatement pr = null;
-        try {
-            pr = this.connect.prepareStatement("create table if not exists entry ( Id serial primary key, field Integer);");
-            pr = this.connect.prepareStatement("delete from entry");
+        try (Connection conn=connect) {
+            conn.setAutoCommit(false);
+            pr = conn.prepareStatement("create table if not exists entry ( Id serial primary key, field Integer);");
+            pr = conn.prepareStatement("delete from entry");
             for (int i = 1; i <= size; i++) {
                 fall.add(new XmlUsage.Field(i));
-                pr = this.connect.prepareStatement(String.format("insert into entry(field) values (?);"));
+                pr = conn.prepareStatement(String.format("insert into entry(field) values (?);"));
                 pr.setInt(1,i);
+                pr.addBatch();
             }
             pr.close();
-            connect.close();
+            pr.executeBatch();
+            conn.commit();
         } catch (SQLException e) {
+            connect.rollback();
             e.printStackTrace();
         }
     }
