@@ -1,23 +1,15 @@
 package ru.job4j.FoodKeeper;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class ControllQuality {
-    private Trash trash=new Trash();
-    private WareHouse ware= new WareHouse();
-    private Shop shop=new Shop();
+    private List<Keeper>k=new ArrayList<>();
 
-    public Trash getTrash() {
-        return trash;
-    }
-
-    public WareHouse getWare() {
-        return ware;
-    }
-
-    public Shop getShop() {
-        return shop;
+    public ControllQuality(List<Keeper> k) {
+        this.k = k;
     }
 
     public double procent(Food food) {
@@ -29,21 +21,25 @@ public class ControllQuality {
     public void distributer(Food food) {
     if (this.procent(food)>0.75 && this.procent(food)<1.0) {
         food.setPrice(food.getPrice()*food.getDiscount());
-            shop.getFoods().add(food);
+            k.get(0).getFoods().add(food);
     }
     else if (this.procent(food)>=0.25 && this.procent(food)<=0.75) {
-            shop.getFoods().add(food);
+            k.get(0).getFoods().add(food);
     }
     else if (this.procent(food)<0.25) {
-        ware.getFoods().add(food);
+        k.get(1).getFoods().add(food);
     }
     else {
-        trash.getFoods().add(food);
+        k.get(2).getFoods().add(food);
         }
     }
 
     public static void main(String[] args) {
-    ControllQuality c1=new ControllQuality();
+        List<Keeper>k=new ArrayList<>();
+        k.add(new Shop());
+        k.add(new Trash());
+        k.add(new WareHouse());
+    ControllQuality c1=new ControllQuality(k);
     Calendar expairDate=new GregorianCalendar(2012,3,5,14,5);
     Calendar createDate=new GregorianCalendar(2012,2,5,16,5);
     Calendar nowDate=new GregorianCalendar(2012,2,10,13,6);
@@ -63,15 +59,15 @@ public class ControllQuality {
     c1.distributer(milk1);
     c1.distributer(bread);
         System.out.println("shop");
-    for (Food f:c1.getShop().getFoods()) {
+    for (Food f:c1.k.get(0).getFoods()) {
         System.out.println(f.getName());
     }
         System.out.println("trash");
-    for (Food f:c1.getTrash().getFoods()) {
+    for (Food f:c1.k.get(1).getFoods()) {
             System.out.println(f.getName());
     }
         System.out.println("ware");
-    for (Food f:c1.getWare().getFoods()) {
+    for (Food f:c1.k.get(2).getFoods()) {
             System.out.println(f.getName());
     }
 }

@@ -1,7 +1,6 @@
 package ru.job4j.FoodKeeper;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class Food {
   private String name;
