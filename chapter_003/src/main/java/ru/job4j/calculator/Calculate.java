@@ -10,7 +10,13 @@ public class Calculate {
     public double multipluer(double firstValue,double secondValue) {
         return firstValue*secondValue;
     }
-    public double division(double firstValue,double secondValue) {
-        return firstValue/secondValue;
+    public double cos(double first) {
+        return Math.cos(first);
+    }
+    public double sin(double first) {
+        return Math.sin(first);
+    }
+    public double tg(double first) {
+        return Math.tan(first);
     }
 }
