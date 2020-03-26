@@ -22,7 +22,7 @@ public class EchoServer {
                            System.out.println(str);
                            massage= new StringBuilder().append(massage).append(str).toString();
                        }
-                       if (massage.equals("Hello")) {
+                       if (("Hello").equals(massage)) {
                            out.write("Hello, dear friend.".getBytes());
                        }
                        else if (massage.equals("Bye")) {
