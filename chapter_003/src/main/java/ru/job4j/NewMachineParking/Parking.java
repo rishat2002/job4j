@@ -42,6 +42,12 @@ public class Parking {
                     i++;
                 }
             }
+            if (i>=amountPlaceForBigCar) {
+                for (int s=0;s<amountPlaceForBigCar;s++) {
+                    sparking.get(s).setPlace(false);
+                }
+                return n=true;
+            }
             return n;
     }
     public boolean bussyForSmallPlace(CanGetPlace c) {
@@ -56,16 +62,6 @@ public class Parking {
     }
 
     public static void main(String[] args) {
-    Parking p=new Parking(2,3);
-    LittleCar l1=new LittleCar();
-    BigCar b1=new BigCar();
-    System.out.println(l1.getPlace(p));
-    System.out.println(b1.getPlace(p)+" machine");
-    for (BigPlace s:p.bparking) {
-        System.out.println(s.isPlace());
-    }
-    for (SmallPlace s:p.getSparking()) {
-            System.out.println(s.isPlace());
-        }
+
     }
 }
