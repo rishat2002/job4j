@@ -20,7 +20,7 @@ public class EchoServer {
                        String massage="";
                        while (!(str = in.readLine()).isEmpty()) {
                            System.out.println(str);
-                           massage= new StringBuilder().append(massage).append(str).toString();
+                          massage=str;
                        }
                        if (("Hello").equals(massage)) {
                            out.write("Hello, dear friend.".getBytes());
