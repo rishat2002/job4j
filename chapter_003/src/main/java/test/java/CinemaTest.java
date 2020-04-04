@@ -1,8 +1,5 @@
 package test.java;
-
 import org.junit.Test;
-import tdd.*;
-
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -33,6 +30,6 @@ public class CinemaTest {
         Cinema3D cinema = new Cinema3D();
         cinema.add(new Session() {
         });
-        assertThat(false, is(cinema.getAllSession().isEmpty()));
+        assertThat(1, is(cinema.getAllSession().size()));
     }
 }
