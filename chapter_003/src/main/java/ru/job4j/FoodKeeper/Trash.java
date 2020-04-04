@@ -10,9 +10,12 @@ public class Trash implements Keeper {
     }
 
     @Override
-    public void accept(Food food) {
+    public boolean accept(Food food) {
+        boolean n=false;
          if (this.procent(food)<1.0) {
              this.getFoods().add(food);
+             return true;
         }
+         return n;
     }
 }

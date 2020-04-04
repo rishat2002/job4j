@@ -11,5 +11,5 @@ public interface Keeper {
         double procent = ((double)i1/(double)i2);
         return procent;
     }
-    public void accept(Food food);
+    public boolean accept(Food food);
 }

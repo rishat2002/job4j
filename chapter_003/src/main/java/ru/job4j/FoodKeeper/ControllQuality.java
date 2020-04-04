@@ -10,11 +10,26 @@ public class ControllQuality {
         this.k = k;
         this.l = l;
     }
+
+    public List<Keeper> getK() {
+        return k;
+    }
+
+    public List<Food> getL() {
+        return l;
+    }
+
+    private void setK(List<Keeper> k) {
+        this.k = k;
+    }
+
     public void distributer() {
         this.clearKeeep();
     for (Keeper p:k) {
        for (Food f:l) {
-           p.accept(f);
+           if (p.accept(f)) {
+            l.remove(f);
+           }
        }
     }}
     public void clearKeeep() {
@@ -23,16 +38,13 @@ public class ControllQuality {
             }
     }
     public void resort (List<Keeper>t) {
-        List<Food>s=new ArrayList<>();
-        for (Keeper m:k) {
-        for (Food a:m.getFoods()) {
-            s.add(a);
-        }
-        }
-        new ControllQuality(t,s);
+     this.setK(t);
+     this.distributer();
     }
+
     public static void main(String[] args) {
-}
+        List<Keeper>k=List.of(new Trash(),new WareHouse(),new Shop());
+     }
 }
 //3.1. Если срок годности израсходован меньше чем на 25% направить в Warehouse.
 ////3.2 Если срок годности от 25% до 75% направить в Shop
