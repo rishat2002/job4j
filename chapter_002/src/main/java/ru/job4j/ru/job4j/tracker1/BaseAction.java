@@ -1,4 +1,4 @@
-package ru.job4j.ru.job4j.tracker;
+package ru.job4j.ru.job4j.tracker1;
 
 public abstract class BaseAction implements UserAction{
     @Override

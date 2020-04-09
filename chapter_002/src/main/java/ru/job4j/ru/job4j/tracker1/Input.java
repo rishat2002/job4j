@@ -1,4 +1,4 @@
-package ru.job4j.ru.job4j.tracker;
+package ru.job4j.ru.job4j.tracker1;
 
 public interface Input {
     String askStr(String question);
