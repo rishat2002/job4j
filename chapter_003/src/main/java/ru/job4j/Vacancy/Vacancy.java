@@ -1,4 +1,6 @@
-package ru.job4j.jsoup;
+package ru.job4j.Vacancy;
+
+import java.util.Objects;
 
 public class Vacancy {
     private String name;
@@ -33,5 +35,18 @@ public class Vacancy {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vacancy vacancy = (Vacancy) o;
+        return name.equals(vacancy.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
