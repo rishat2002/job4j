@@ -7,21 +7,27 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.stream.Collectors;
 
 public class FindFile {
     private final String[] args;
-
     public FindFile(String[] args) {
         this.args = args;
+        if (args.length!=7 || !args[0].equals("-d") || !args[2].equals("-n") || !args[5].equals("-o"))  {
+            try {
+                throw new Exception("Данные введены не правильно");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void findFile() {
         if (this.getParameter()[2].equals("-f")) {
-            this.writeFile(this.getParameter()[3], this.searchFullName(this.getParameter()[0], this.getParameter()[1]));
+            this.writeFile(this.getParameter()[3],
+                    this.files(this.getParameter()[0],this.getParameter()[1],new FullCompare()));
         }
         if (this.getParameter()[2].equals("-r")) {
-            this.writeFile(this.getParameter()[3], this.searchRegexName(this.getParameter()[0], this.getParameter()[1]));
+            this.writeFile(this.getParameter()[3], this.files(this.getParameter()[0],this.getParameter()[1],new RegexCompare()));
         }
     }
 
@@ -47,15 +53,16 @@ public class FindFile {
         return parameterList;
     }
 
-    public List<File> files(String directory) {
+    public List<File> files(String directory,String filename,MetodSearch metod) {
         Queue<File> data = new LinkedList<>();
         List<File> filebase = new ArrayList<>();
         File root = new File(directory);
         data.offer(root);
         while (!data.isEmpty()) {
             File el = data.poll();
-            if (!el.isDirectory()) {
-                filebase.add(el);
+            if (!el.isDirectory() ) {
+                if (metod.compareString(el.getName(),filename)){
+                filebase.add(el);}
             } else if (el.listFiles().length != 0) {
                 for (File child : el.listFiles()) {
                     data.offer(child);
@@ -65,28 +72,20 @@ public class FindFile {
         return filebase;
     }
 
-    public List<File> searchFullName(String directory, String fileName) {
-        return this.files(directory).stream().filter(x -> x.getName()
-                .equals(fileName)).collect(Collectors.toList());
-    }
-
-    public List<File> searchRegexName(String directory, String regex) {
-        return this.files(directory).stream().filter(x -> x.getName()
-                .matches(regex)).collect(Collectors.toList());
-    }
 
     public void writeFile(String path, List<File> f) {
         try (FileWriter writer = new FileWriter(path, false)) {
             f.stream().forEach(x -> {
                 try {
-                    writer.write(x.getName()+"\n");
+                    writer.write(x.getName());
+                    writer.write(System.getProperty("line.separator"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
             writer.flush();
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
@@ -95,14 +94,3 @@ public class FindFile {
         f.findFile();
     }
 }
-//1. Создать программу для поиска файла.
-//2. Программа должна искать данные в заданном каталоге и подкаталогах.
-//3. Имя файла может задаваться, целиком, по маске, по регулярному выражение(не обязательно).
-//4. Программа должна собираться в jar и запускаться через java -jar find.jar -d c:/ -n *.txt -m -o log.txt
-//Ключи
-//-d - директория в которая начинать поиск.
-//-n - имя файл, маска, либо регулярное выражение.
-//-m - искать по макс, либо -f - полное совпадение имени. -r регулярное выражение.
-//-o - результат записать в файл.
-//5. Программа должна записывать результат в файл.
-//6. В программе должна быть валидация ключей и подсказка.
