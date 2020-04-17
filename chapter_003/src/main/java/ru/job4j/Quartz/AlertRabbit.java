@@ -14,14 +14,16 @@ import static org.quartz.TriggerBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.*;
 
 public class AlertRabbit {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try {
-            File file = new File("C:\\projects\\job4j\\chapter_003\\src\\main\\java\\ru\\job4j\\Quartz\\rabbit.properties");
+            File file = new File("src/main/java/ru/job4j/Quartz/rabbit.properties");
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDetail job = newJob(Rabbit.class).build();
+            Properties p=new Properties();
+            p.load(new FileInputStream(file));
             SimpleScheduleBuilder times = simpleSchedule()
-                    .withIntervalInSeconds(Integer.parseInt(AlertRabbit.readPropertyFile(file)))
+                    .withIntervalInSeconds(Integer.parseInt(AlertRabbit.readPropertyFile(p)))
                     .repeatForever();
             Trigger trigger = newTrigger()
                     .startNow()
@@ -40,17 +42,9 @@ public class AlertRabbit {
         }
     }
 
-    public static String readPropertyFile(File file) {
-        Properties property = new Properties();
+    public static String readPropertyFile(Properties property) {
         String time = null;
-        try (FileInputStream fis = new FileInputStream(file)) {
-            property.load(fis);
             time = property.getProperty("rabbit.interval");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return time;
     }
 }
