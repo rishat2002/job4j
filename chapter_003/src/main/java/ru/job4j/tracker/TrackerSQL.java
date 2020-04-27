@@ -8,19 +8,17 @@ import java.util.Properties;
 
 public class TrackerSQL implements ITracker, AutoCloseable {
     private String tableName;
-    private Connection conn;
-
-    public TrackerSQL(String tableName) {
+    private Connection connection;
+    public TrackerSQL(String tableName,Connection connection) {
         this.tableName = tableName;
-        this.init();
+        this.connection=connection;
     }
-
-    private boolean init() {
+    public Connection init() {
         try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
-            this.conn = DriverManager.getConnection(
+            this.connection = DriverManager.getConnection(
                     config.getProperty("url"),
                     config.getProperty("username"),
                     config.getProperty("password")
@@ -29,19 +27,18 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         catch (Exception e) {
             throw new IllegalStateException(e);
         }
-
-        return this.conn != null;
+        return this.connection;
     }
 
     @Override
     public void close() throws Exception {
-        conn.close();
+        connection.close();
     }
 
     @Override
     public Item add(Item item) {
         try {
-            PreparedStatement pr = this.conn.prepareStatement("insert into "+tableName+" (Id_item , Name) values (?,?)");
+            PreparedStatement pr = this.connection.prepareStatement("insert into "+tableName+" (Id_item , Name) values (?,?)");
             pr.setString(1, item.getId());
             pr.setString(2, item.getName());
            int rs = pr.executeUpdate();
@@ -57,7 +54,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         try {
             PreparedStatement pr = null;
             int rs = 0;
-            pr = conn.prepareStatement(String.format("UPDATE %s SET name=?,Id_item=?  WHERE id_item=?;",
+            pr = connection.prepareStatement(String.format("UPDATE %s SET name=?,Id_item=?  WHERE id_item=?;",
                     tableName));
             pr.setString(1, item.getName());
             pr.setString(2, item.getId());
@@ -84,7 +81,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public boolean delete(String id) {
         boolean succesOperation = false;
         try {
-            PreparedStatement pr = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_item=?;", tableName));
+            PreparedStatement pr = connection.prepareStatement(String.format("DELETE FROM %s WHERE id_item=?;", tableName));
             pr.setString(1, id);
             int rs = pr.executeUpdate();
             if (rs > 0) {
@@ -108,7 +105,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public List<Item> findall() {
         List<Item> itemlist = new ArrayList<Item>();
         try {
-            PreparedStatement pr = conn.prepareStatement(String.format("select * from %s", tableName));
+            PreparedStatement pr = connection.prepareStatement(String.format("select * from %s", tableName));
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
                 Item item = new Item(rs.getString("name"));
@@ -134,7 +131,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         ArrayList<Item> list = new ArrayList<>();
         try {
             this.init();
-            PreparedStatement pr = conn.prepareStatement(String.format("select * from %s where name=?", tableName));
+            PreparedStatement pr = connection.prepareStatement(String.format("select * from %s where name=?", tableName));
             pr.setString(1, key);
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
@@ -161,7 +158,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         Item item = null;
         try {
             this.init();
-            PreparedStatement pr = conn.prepareStatement(String.format("select * from %s where id_item=?", tableName));
+            PreparedStatement pr = connection.prepareStatement(String.format("select * from %s where id_item=?", tableName));
             pr.setString(1, id);
             ResultSet rs = pr.executeQuery();
             if (rs.next() == false) {
@@ -184,11 +181,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     }
 
     public static void main(String[] args) throws SQLException {
-        TrackerSQL s1 = new TrackerSQL("items");
-        Item item1=new Item("slava");
-        item1.setId("23");
-        s1.init();
-        s1.add(item1);
+
 
     }
 }
