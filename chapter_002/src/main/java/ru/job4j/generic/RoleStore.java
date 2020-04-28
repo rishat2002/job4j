@@ -5,4 +5,5 @@ public class RoleStore extends AbsractStore<Role>  {
     public RoleStore(int size) {
         super(size);
     }
+
 }

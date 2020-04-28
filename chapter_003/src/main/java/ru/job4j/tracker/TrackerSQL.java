@@ -163,8 +163,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     }
 
     public static void main(String[] args) {
-        Connection con=null;
-        TrackerSQL t=new TrackerSQL("items",con );
-        t.init();
+        
     }
 }

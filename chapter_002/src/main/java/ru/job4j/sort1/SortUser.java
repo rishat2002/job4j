@@ -39,9 +39,7 @@ public class SortUser {
                 return Integer.compare(o1.getAge(),o2.getAge()) ;
             }
         }));
-        for (User m:list) {
-            System.out.println(m.getName()+" "+m.getAge());
-        }
+
         return list;
     }
 
@@ -57,5 +55,6 @@ public class SortUser {
         lit.add(user4);
         lit.add(user2);
         sort1.sortByAllFields(lit);
+        List<User>truelit=List.of(new User(16,"asha"),new User(22,"pasha"),new User(13,"slava"),new User(14,"lava"));
     }
 }

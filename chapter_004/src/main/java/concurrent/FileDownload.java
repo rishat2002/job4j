@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FileDownload {
     public static void main(String[] args) throws Exception {
-        String file = "https://raw.githubusercontent.com/peterarsentev/course_test/master/pom.xml";
+        String file = "http://servicetex.ru/wp-content/uploads/lib/cnc/FANUC/Manual%20Guide/B-63874RU_06%20MANUAL%20GUIDE%20i.pdf";
         int v=Integer.parseInt(args[0])*1000;
         try (BufferedInputStream in = new BufferedInputStream(new URL(file).openStream());
              FileOutputStream fileOutputStream = new FileOutputStream("ump.txt")) {
@@ -25,8 +25,8 @@ public class FileDownload {
                     a=b;
                     if (byteCount>v) {
                     long sleepTime=(byteCount-v)/v-1000;
+                    System.out.println(sleepTime);
                     Thread.sleep(sleepTime);
-                        System.out.println(sleepTime);
                     }
                 }
             }

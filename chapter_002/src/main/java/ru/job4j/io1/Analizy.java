@@ -12,7 +12,7 @@ public class Analizy {
         BufferedReader br = new BufferedReader(fr);
         PrintWriter out = new PrintWriter(new FileOutputStream(target));
         String line;
-        List<String> listTime=new ArrayList<>();
+
         while ((line = br.readLine()) != null) {
             if (line.indexOf("400") != -1 || line.indexOf("500")!=-1) {
                 String beginTime = line.substring(line.indexOf(" ")+1,line.length());
@@ -29,7 +29,6 @@ public class Analizy {
         out.close();
 
     }
-
     public static void main(String[] args) throws IOException {
 
     }

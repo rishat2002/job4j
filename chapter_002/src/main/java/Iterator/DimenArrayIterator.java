@@ -11,6 +11,16 @@ public class DimenArrayIterator implements Iterator {
         this.doublearray = doublearray;
     }
 
+    public int[][] getDoublearray() {
+        return doublearray;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("finalize");
+    }
+
     @Override
     public boolean hasNext() {
         if (i==doublearray.length) return false;
@@ -26,5 +36,20 @@ public class DimenArrayIterator implements Iterator {
             i++;
         }
         return s;
+    }
+
+    public static void main(String[] args) {
+        int[][] slovo=new int[200][200];
+        for (int [] l:slovo) {
+            for (int k:l) {
+                k=4;
+            }
+        }
+        DimenArrayIterator d=new DimenArrayIterator(slovo);
+        while (d.hasNext()) {
+            System.out.print(d.next());
+        }
+        System.gc();
+
     }
 }

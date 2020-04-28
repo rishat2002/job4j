@@ -20,4 +20,8 @@ public class SimpleSet<T> extends ArrList<T> {
         }
         return n;
     }
+
+    public ArrList<T> getArr() {
+        return arr;
+    }
 }

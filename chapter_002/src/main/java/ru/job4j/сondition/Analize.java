@@ -8,7 +8,6 @@ public class Analize {
 
     public Info diff(List<User> previous, List<User> current) {
         Info info = new Info();
-        List<User> list = new ArrayList<>(previous);
         info.added = current.size();
         Map<String, User> currentMap = current.stream().collect(Collectors.toMap(user -> user.name, t -> t));
         for (User user : previous) {

@@ -31,7 +31,7 @@ public class Search {
     }
     public String getFileExtension(File file) {
         String fileName = file.getName();
-        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0 && !file.isDirectory())
             return fileName.substring(fileName.lastIndexOf(".")+1);
         else return "";
     }

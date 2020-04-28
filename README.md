@@ -1,4 +1,2 @@
 # job4j  course 2
-Объединение зафиксированных изменений1
-В курсе производилась работа с веткамы git.
-old branch
+[![Build Status](https://travis-ci.org/rishat2002/job4j.svg?branch=master)](https://travis-ci.org/rishat2002/job4j)

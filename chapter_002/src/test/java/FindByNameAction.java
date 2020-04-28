@@ -1,13 +1,11 @@
 import  org.junit.Test;
-import ru.job4j.ru.job4j.tracker.FindNameAction;
-import ru.job4j.ru.job4j.tracker.ShowAction;
+import ru.job4j.tracker.FindNameAction;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.StubInput;
 import ru.job4j.tracker.Tracker;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.StringJoiner;
 import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;

@@ -1,5 +1,5 @@
 import  org.junit.Test;
-import ru.job4j.ru.job4j.tracker.ShowAction;
+import ru.job4j.tracker.ShowAction;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.StubInput;
 import ru.job4j.tracker.Tracker;

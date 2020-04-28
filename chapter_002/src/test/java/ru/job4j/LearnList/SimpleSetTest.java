@@ -27,7 +27,7 @@ public class SimpleSetTest {
         expected.add("3");
         expected.add("6");
         Set<String> result = new HashSet<>();
-        for (String s : set1.arr) {
+        for (String s : set1.getArr()) {
             result.add(s);
         }
         assertThat(expected, is(result));

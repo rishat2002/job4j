@@ -28,4 +28,10 @@ public class User implements Comparable<User> {
     public int compareTo(User o) {
         return age-o.getAge();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        User o=(User)obj;
+        return this.getAge()==o.getAge() && this.getName().equals(o.getName());
+    }
 }

@@ -71,6 +71,7 @@ public class MyMap<K, V> implements Iterable {
                 for (int i = j; i < mass.length; i++) {
                     if (mass[i] != null) {
                         result = true;
+                        j=i+1;
                         break;
                     }
                 }
@@ -86,13 +87,7 @@ public class MyMap<K, V> implements Iterable {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                for (int i = j; i < mass.length; i++) {
-                    if (mass[i] != null) {
-                        l = mass[i];
-                        j=i+1;
-                        break;
-                    }
-                }
+                l=mass[j-1];
                 return l;
             }
         };
