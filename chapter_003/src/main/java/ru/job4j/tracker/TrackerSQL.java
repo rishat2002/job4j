@@ -116,12 +116,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             pr.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                this.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
         return itemlist;
     }
@@ -143,12 +137,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             pr.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                this.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
         return list;
     }
@@ -170,18 +158,13 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             pr.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                this.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
         return item;
     }
 
-    public static void main(String[] args) throws SQLException {
-
-
+    public static void main(String[] args) {
+        Connection con=null;
+        TrackerSQL t=new TrackerSQL("items",con );
+        t.init();
     }
 }

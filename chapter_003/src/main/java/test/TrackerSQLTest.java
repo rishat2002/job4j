@@ -30,12 +30,14 @@ public class TrackerSQLTest {
 
     }
 
-    @Test
-    public void createItem() throws Exception {
-        try (TrackerSQL tracker = new TrackerSQL("item",ConnectionRollback.create(this.init()))) {
-            Item i=new Item("tail");
-            i.setId("hor");
-            tracker.add(i);
-            Assert.assertEquals(tracker.findByName("tail").size(),1);
-    }
-}}
+   @Test
+   public void createItem() throws Exception {
+       try (TrackerSQL tracker = new TrackerSQL("item",ConnectionRollback.create(this.init()))) {
+           Item i=new Item("tail");
+           i.setId("hor");
+           tracker.add(i);
+           Assert.assertEquals(tracker.findall().size(),1);
+           Assert.assertEquals(tracker.findall().get(0).getName(),"tail");
+  }
+}
+}
