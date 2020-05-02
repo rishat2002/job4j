@@ -1,7 +1,11 @@
 package concurrent;
 
 public class ConsoleProgress implements Runnable {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        Thread progress = new Thread(new ConsoleProgress());
+        progress.start();
+        Thread.sleep(2000);
+        progress.interrupt();
     }
     @Override
     public void run() {
@@ -15,7 +19,7 @@ public class ConsoleProgress implements Runnable {
             }
         }}
         catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 }
