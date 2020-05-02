@@ -1,5 +1,3 @@
-package test;
-
 import org.junit.Test;
 import ru.job4j.NewMachineParking.BigCar;
 import ru.job4j.NewMachineParking.LittleCar;

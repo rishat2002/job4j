@@ -31,5 +31,7 @@ public class Writefile {
         String[]param=new ArgumentParse(args).getParameter();
         FindPredicate f=new FindPredicate(param);
         new Writefile().writeFile(param[3],new FileFind(f).files(param[0],param[1]));
+
     }
+
 }

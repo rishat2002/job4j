@@ -1,14 +1,12 @@
-package test;
-
 import org.junit.Assert;
 import org.junit.Test;
 import ru.job4j.tracker.ConnectionRollback;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.TrackerSQL;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 
