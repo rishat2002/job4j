@@ -1,4 +1,4 @@
-package Syncronized;
+package syncronizedpart;
 
 import java.util.Objects;
 
